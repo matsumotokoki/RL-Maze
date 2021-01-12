@@ -24,7 +24,7 @@ class q_learning(object):
             next_action = np.random.choice(range(4) ,p=w)  
         return next_action
 
-    def update_Qtable(self,q_table,state,action,reward,next_state):
+    def update(self,q_table,state,action,reward,next_state):
         next_max_q = max(q_table[next_state])
         q_table[state,action] = (1 - self.alpha) * q_table[state,action] \
                                 + self.alpha * (reward + self.gamma * next_max_q)
@@ -36,7 +36,7 @@ class q_learning(object):
         elif state == next_state:
             reward = -10
         else:
-            reward = -0.1
+            reward = -1
         return reward
 
 
@@ -54,7 +54,7 @@ class q_learning(object):
                 next_state = self.agent.get_state()
                 reward = self.reward(done,state,next_state) 
                 reward_of_episode += reward
-                self.q_table = self.update_Qtable(self.q_table,state,action,reward,next_state)
+                self.q_table = self.update(self.q_table,state,action,reward,next_state)
                 action = self.decide_action(next_state,episode,self.q_table)
                 state = next_state
                 self.map.plot(self.agent.pos,self.q_table)
