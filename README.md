@@ -39,3 +39,4 @@ $ cd probrobotics2021/jupyter
 ## 必要となるライブラリ 
 * matplotlib
 * numpy
+* gym
